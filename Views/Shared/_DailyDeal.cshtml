@@ -1,0 +1,41 @@
+﻿@model TestStore.Models.Album
+
+@{
+    ViewBag.Title = "DailyDeal";
+}
+
+
+
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Your Daily Deal:@Model.Title</h3>
+
+
+    </div>
+
+    <div class="panel-body">
+        <p>
+            <img alt="@Model.Title"
+                 src="~/Content/Images/istockphoto-846750800-612x612 (2).jpg" />
+        </p>
+
+        <div id="album-details">
+            <p>
+                <em>Artist Name:</em>
+                @Model.Artist.ArtistName
+            </p>
+
+            <p>
+                @String.Format("{0:F}", Model.Price)
+            </p>
+
+            @Html.ActionLink("Add To Cart", "AddToCart", new { @id = Model.AlbumID },
+             new { @class = "btn btn-primary" })
+        </div>
+    </div>
+
+</div>
+<br />
+

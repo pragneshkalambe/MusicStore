@@ -1,0 +1,148 @@
+﻿@model TestStore.Models.OrderEntity
+@using TestStore.Models
+@{
+    ViewBag.Title = "Payment";
+}
+
+<title>Paypal Payment</title>
+
+<head>
+
+</head>
+
+<body>
+    <main id="cart-main">
+        <div class="text-center">
+            <h1 class="popover-title">
+                Shopping Cart
+            </h1>
+
+
+        </div>
+
+        <div class="container">
+            <div class>
+                <div class="col-md-1">
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr>
+                            <th class="btn-primary">Product Image:</th>
+                            <th class="btn-primary">Product Name:</th>
+                            <th class="btn-primary">Product Price:</th>
+                            <th class="btn-primary">Product Quantity:</th>
+                            <th class="btn-primary">Total Amount:</th>
+                            <th class="btn-primary">Operations</th>
+
+
+
+                        </tr>
+                        @foreach (var item in (List<Item>)Session["cart"])
+                        {
+                            <tr>
+                                <td>
+                                    <img src="~/Content/images/istockphoto-846750800-612x612 (2).jpg" alt="@item.Album.Title" width="100" height="100" />
+                                </td>
+                                <td>
+                                    @item.Album.Title
+                                </td>
+                                <td>
+                                    @item.Album.Price
+                                </td>
+                                <td>
+                                    @item.Quantity
+                                </td>
+                                <td>
+                                    @(item.Album.Price * item.Quantity)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("RemoveFromCart", "Cart", new { @AlbumID = item.Album.AlbumID })" class="btn btn-danger">Remove From Cart</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <h2>
+                                    Total Amount To Be Paid:
+                                </h2>
+                            </td>
+
+                            <td>
+                                @{
+                                    List<Item> cart = (List<Item>)Session["cart"];
+                                    var total = (from data in cart
+                                                 select data.Album.Price * data.Quantity).Sum();
+                                }
+                                <h2>@total</h2>
+                            </td>
+                        </tr>
+                        
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td colspan="5" style="text-align:center">
+                                    <table style="border-collapse:separate;
+                                     border-spacing:5px;">
+                                        <td></td>
+
+
+                            </tr>
+                            
+
+                    </table>
+                    
+                </div>
+                <div class="col-md-2">
+
+                    <div id="paypal-button">
+                        @*<a class="btn btn-success">Pay Using Paypal</a>*@
+
+                    </div>
+
+
+
+                    <script src="https://www.paypal.com/sdk/js?client-id=AWXozA-OX1i3F0XTEg-NwXCc2SUvaNmMDPZ7wm64kQddp5YiX39Mu1WUOxFISVfBnV4OE015i4k0xjBo">
+
+                    </script>
+                    @*<script>paypal.Buttons().render('paypal-button');</script>*@
+                    <script>
+                    paypal.Buttons({
+                    style: {
+                    layout: 'vertical',
+                    label:  'paypal'
+                        },
+                        createOrder() {
+                            return fetch("/my-server/create-paypal-order", {
+                                method: "post",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                // use the "body" param to optionally pass additional order information
+                                // like product skus and quantities
+                                body: JSON.stringify({
+                                    cart: [
+                                        {
+                                            sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                                            quantity: "YOUR_PRODUCT_QUANTITY",
+                                        },
+                                    ],
+                                }),
+                            })
+                                .then((response) => response.json())
+                                .then((order) => order.id);
+                        },
+                        
+
+                        
+                    }).render('#paypal-button');
+
+                    </script>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </main>
+</body>
+

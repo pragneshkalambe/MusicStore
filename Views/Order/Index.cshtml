@@ -1,0 +1,50 @@
+﻿@model TestStore.Models.OrderEntity
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.BeginForm("InitiateOrder", "Order")
+        {
+        <div class="form-group">
+        @Html.LabelFor(model => model.CustomerName, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+
+        @Html.LabelFor(model => model.Mobile, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+
+        @Html.LabelFor(model => model.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+
+        </div>
+
+
+        <div class="form-group">
+
+        @Html.LabelFor(model => model.TotalAmount, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control" })
+
+        </div>
+
+        }
+
+        <div class="form-group">
+            <input type="submit" value="Continue To Pay" class="btn btn-primary" />
+
+        </div>
+
+
+    </div>
+</div>
+

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<TestStore.Models.Album>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+                    @*<script type="text/javascript">
+                function AddToCart(item)
+                {
+                    var itemId = $(item).attr("@AlbumID");
+                    alert(itemId);
+                }
+                    </script>*@
+
+<div>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+           
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="table" >
+
+                    @Html.DisplayFor(model => item.Title)
+                    <img src="~/Content/images/istockphoto-846750800-612x612 (2).jpg" style="height:200px;width:200px;margin:10px" />
+                    Price:@Html.DisplayFor(model => item.Price)
+
+                    @Html.ActionLink("AddtoCart", "AddToCart", "Cart", new { @AlbumID = item.AlbumID }, new { @class = "btn btn-primary" })
+                    @*<img src="@Url.Content("~/Content/images/cart.svg(1)")" style="width:30px;height:30px;" />*@
+
+
+
+                </div>
+            </div>
+
+        }
+
+    </div><br />
+
+    
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <button class="btn btn-primary dailyDealOffer">Click Here To See Today's Special</button>
+
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="dailyDeal">
+
+        </div>
+    </div>
+</div>
+
+<div class="searchResults">
+
+
+</div>
+
+@Html.ActionLink("Go To Search", "Search", "Home","", new { @class = "btn btn-primary" })
+
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $(".dailyDealOffer").click(function () {
+                $.ajax
+                    ({
+                        url: "Home/DailyDeal",
+                        type: "GET",
+                        success: function (result) {
+                            alert: "succeded";
+                            $(".dailyDeal").html(result);
+                        },
+                        error: function (result) {
+                            alert("failed")
+                        }
+
+
+                    });
+
+            });
+        });
+
+    </script>
+
+}

@@ -1,0 +1,120 @@
+﻿@using TestStore.Models
+
+@{
+    ViewBag.Title = "Shopping_Success";
+}
+
+
+<body style="text-align:center">
+    <table class="table  table-bordered table-striped">
+
+    <h2>Shopping Successful</h2>
+    <h3>
+        Your Order Is Placed Succesfully.You will receive it in 2-3 Days.Thanks!! 
+    </h3>
+    <h2>Your Cart</h2>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th class="btn-primary">Product Image:</th>
+            <th class="btn-primary">Product Name:</th>
+            <th class="btn-primary">Product Price:</th>
+            <th class="btn-primary">Product Quantity:</th>
+            <th class="btn-primary">Total Amount:</th>
+
+            @*<th class="btn-primary">Sum</th>*@
+
+
+
+        </tr>
+        @foreach (var item in (List<Item>)Session["cart"])
+        {
+            <tr>
+                <td>
+                    <img src="~/Content/images/istockphoto-846750800-612x612 (2).jpg" alt="@item.Album.Title" width="100" height="100" />
+                </td>
+                <td>
+                    @item.Album.Title
+                </td>
+                <td>
+                    @item.Album.Price
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @(item.Album.Price * item.Quantity)
+                </td>
+                @*<td>
+                    @(item.Album.Price * item.Quantity)
+                </td>*@
+                @*<a class="btn btn-success" href="@Url.Action("Index","Home")">Continue Shopping</a>*@
+                @*<td>
+                    <a href="@Url.Action("RemoveFromCart", "Cart", new { @AlbumID = item.Album.AlbumID })" class="btn btn-danger">Remove From Cart</a>
+                </td>*@
+            </tr>
+        }
+        <tr>
+            <td colspan="5" class="text-center">
+                <h2>
+                    Total Amount  Paid:
+                </h2>
+            </td>
+
+            <td>
+                @{
+                    List<Item> cart = (List<Item>)Session["cart"];
+                    var total = (from data in cart
+                                 select data.Album.Price * data.Quantity).Sum();
+                }
+                <h2>@total</h2>
+            </td>
+        </tr>
+    </table>
+        @Html.ActionLink("Continue Shopping", "Index", "", new { @class = "btn btn-primary" })
+
+        <!--<tr>
+            <td colspan="5" class="text-center">
+                <h2>
+                    Total Amount To Be Paid:
+                </h2>
+            </td>
+
+            <td>
+               
+            </td>
+        </tr>
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="5" style="text-align:center">
+                    <table style="border-collapse:separate;border-spacing:5px;">-->
+                        @*<tr>
+                                <td>Customer Code:</td>
+                                <td><input type="number" name="CodeCustomer"</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery Address:</td>
+                                <td><input type="text" name="Address_Delivery"</td>
+                                <td></td>
+                            </tr>
+                            <tr>*@
+                        @*@Html.ActionLink("Register","Login", "Customer","",new { @class = "btn btn-success" })*@
+                        @*<td><a href="@Url.Action("SignUp", "Customer"})" class="btn btn-primary"</td>*@
+                        <!--<td></td>-->
+                        @*<td><input type="submit" value="CheckOut" class="btn btn-primary"</td>*@
+                        <!--
+                    </table>
+                </td>
+            </td>
+            </tr>
+
+      </tfoot>
+    </table>-->
+
+    
+
+
+
+
+
+</body>

@@ -1,0 +1,45 @@
+﻿
+
+@model IEnumerable<TestStore.Models.Album>
+@{ ViewBag.Title = "Search"; }
+<h2>Results</h2>
+
+
+
+<table class="table table-condensed table-striped table-bordered">
+    @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+    {
+        <input type="text" name="q" id="q" />
+        <input type="submit" value="Search" />
+    }
+    <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>@item.Artist.ArtistName</td>
+            <td>@item.Title</td>
+            <td>@String.Format("{0:c}", item.Price)</td>
+            @*<td>@item.Artist.Albums</td>*@
+
+
+        </tr>
+
+
+
+    }
+</table>
+<div class="col-md-1">
+    @Html.ActionLink("Back ", "Search", "Home", "", new { @class = "btn btn-primary" })
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

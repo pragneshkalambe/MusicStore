@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TestStore.Models.Album>
+
+
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist.ArtistName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist.Albums)
+            </th>
+            <th>
+                Album Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artist.ArtistName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artist.Albums)
+                    @*<img src="~/ImageName/Cover/@item.ImageName"
+                        class="rounded-square"
+                        height="50" width="75"
+                        style="border:1px"
+                        asp-append-version="true" accept="image/*" />*@
+                </td>
+                <td>
+                    @*<a asp-action="Details" class="btn btn-primary" asp-route-memberId="@item.AlbumArtUrl">Details</a> |  <a asp-action="EditMember" class="btn btn-warning" asp-route-memberId="@item.MemberId">Edit</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Back To Index","Index","Home","",new { @class = "btn btn-primary"})

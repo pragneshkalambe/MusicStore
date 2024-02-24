@@ -1,0 +1,86 @@
+﻿
+@model IEnumerable<TestStore.Models.Album>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Create New</h2>
+@*@Html.HiddenFor(m => m.)*@
+
+<p>
+
+    @Html.ActionLink("Create New", "Create", "Store", "", new { @class = "btn btn-primary"})
+</p>
+
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+
+            @*<th>
+                    @Html.DisplayNameFor(m => m.ArtistID)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(m => m.Artist.ArtistName)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(m => m.GenreID)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(m => m.Genre.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.AlbumArtUrl)
+            </th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+
+        <tr>
+            @foreach (var item in Model)
+            {
+                @*<td>
+                    @Html.DisplayFor(m => item.ArtistID)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(m => item.Artist.ArtistName)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(m => item.GenreID)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(m => item.Genre.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Price)
+                </td>
+                <th>
+                    @Html.DisplayFor(m => item.AlbumArtUrl)
+                </th>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { @id = item.AlbumID }) |
+                    @Html.ActionLink("Details", "Details", new { @id = item.AlbumID }) |
+                    @Html.ActionLink("Delete", "Delete", new { @id = item.AlbumID })
+                </td>
+
+            }
+        </tr>
+
+    </tbody>
+
+</table>
+
+
+
